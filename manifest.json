@@ -7,10 +7,6 @@
     "<all_urls>",
     "storage"
   ],
-  "browser_action": {
-    "default_icon": "icon.png"
-  },
-
   "content_scripts": [
     {
     "matches": [
@@ -19,11 +15,11 @@
       ],
     "js": [
       "libs/jquery-3.3.1.min.js",
-      "defaultNCageUrls.js",
       "ncage.js"
     ],
     "run_at": "document_start"
     }
   ], 
-  "manifest_version":2
+  "manifest_version":2,
+  "converted_from_user_script": true
 }
