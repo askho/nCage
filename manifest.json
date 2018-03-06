@@ -1,0 +1,28 @@
+{
+  "name": "Image Block",
+  "description": "Blocks images by replacing them with pictures of nicholas cage.",
+  "version": "0.1",
+  "permissions": [
+    "tabs",
+    "<all_urls>",
+    "storage"
+  ],
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+
+  "content_scripts": [
+    {
+    "matches": [
+      "http://*/*",
+      "https://*/*"
+      ],
+    "js": [
+      "libs/jquery-3.3.1.min.js",
+      "ncage.js"
+    ],
+    "run_at": "document_start"
+    }
+  ], 
+  "manifest_version":2
+}
