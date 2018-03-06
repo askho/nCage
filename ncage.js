@@ -23,12 +23,10 @@ function readFromStorage(key) {
 
 async function searchForNCageImages() {
   const searchPromise = new Promise((resolve, reject) => {
-    jQuery.ajax("https://api.flickr.com/services/feeds/photos_public.gne", {
+    jQuery.ajax("https://api.qwant.com/api/search/images", {
       data: {
-        tags: "nicolas cage",
-        tagmode: "any",
-        format: "json",
-        nojsoncallback: 1
+        count: 50,
+        q: "nicolas cage"
       },
       dataType: "json",
       success: resolve,
@@ -36,7 +34,7 @@ async function searchForNCageImages() {
     });
   });
   const results = await searchPromise;
-  return results.items.map(item => item.media.m);
+  return results.data.result.items.map(item => item.media);
 }
 
 async function refreshNCageDB() {
