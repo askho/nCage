@@ -1,7 +1,4 @@
-var main = async function($) { 
 	
-var self = $.nCage = new function(){};
-
 function writeToStorage(key, val) {
 	return new Promise((resolve) => {
     const insertionData = {};
@@ -52,18 +49,13 @@ async function getNCageUrls() {
 
 refreshNCageDB();
 
-const nCageUrls = await getNCageUrls();
 
-jQuery(document).ready(() => {
+jQuery(document).ready(async () => {
+  const nCageUrls = await getNCageUrls();
   jQuery.each(jQuery("img"), (i, item) => {
     const randomImage = nCageUrls[Math.floor(Math.random() * nCageUrls.length)];
     item.src = randomImage;
   });
 });
-
-};
-
-	
-main(jQuery);
  
  
