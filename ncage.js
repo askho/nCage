@@ -1,4 +1,6 @@
 	
+let INSTALL_DATE = new Date();
+const DAY_IN_MS = 1000 * 60 * 60 * 24;
 function writeToStorage(key, val) {
 	return new Promise((resolve) => {
     const insertionData = {};
@@ -47,6 +49,22 @@ async function getNCageUrls() {
   return urls.ncage || DEFAULT_NCAGE_URLS;
 }
 
+async function setInstallationDate() {
+  const result = await readFromStorage("installDate");
+  if (!result.installDate) {
+    writeToStorage("installDate", (new Date().getTime()));
+  } else {
+    INSTALL_DATE = (new Date(result.installDate));
+  }
+}
+
+function shouldReplaceImage() {
+  const daysSinceInstall = Math.floor((new Date() - INSTALL_DATE) / DAY_IN_MS);
+  const random = Math.random();
+  return random < (daysSinceInstall / 100)
+}
+
+setInstallationDate();
 refreshNCageDB();
 
 
@@ -54,7 +72,9 @@ jQuery(document).ready(async () => {
   const nCageUrls = await getNCageUrls();
   jQuery.each(jQuery("img"), (i, item) => {
     const randomImage = nCageUrls[Math.floor(Math.random() * nCageUrls.length)];
-    item.src = randomImage;
+    if (shouldReplaceImage()) {
+      item.src = randomImage;
+    }
   });
 });
  
